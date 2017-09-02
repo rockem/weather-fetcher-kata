@@ -11,17 +11,18 @@ import java.net.URISyntaxException;
 public class Application {
 
     public static void main(String[] args) {
+        CmdArgs cmdArgs = CmdArgs.create(args);
         try {
-            HttpClients.createDefault().execute(new HttpGet(createUriFor(args)));
+            HttpClients.createDefault().execute(new HttpGet(createUriFor(cmdArgs)));
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
         System.exit(1);
     }
 
-    private static URI createUriFor(String[] args) throws URISyntaxException {
-        return new URIBuilder("http://localhost:8912/v1/public/yql")
-                .addParameter("q", createYQLFor(String.join(", ", args)))
+    private static URI createUriFor(CmdArgs args) throws URISyntaxException {
+        return new URIBuilder(args.getYahooDomain() + "/v1/public/yql")
+                .addParameter("q", createYQLFor(String.join(", ", args.getPlace())))
                 .addParameter("format", "json").build();
     }
 

@@ -2,6 +2,7 @@ package e2e.com.heed.fetcher.support;
 
 import com.heed.fetcher.Application;
 import org.junit.Assert;
+import wiremock.org.apache.commons.lang3.ArrayUtils;
 
 import java.security.Permission;
 
@@ -16,7 +17,7 @@ public class AppDriver {
             @Override
             public void checkExit(int status) {
                 errCode = status;
-                if(errCode != 0)
+                if (errCode != 0)
                     throw new SecurityException();
             }
 
@@ -31,13 +32,13 @@ public class AppDriver {
     }
 
     public void execWith(String[] arguments) {
+        String[] cmdArgs = new String[]{"--yahoo", "http://localhost:8912"};
         try {
-            Application.main(arguments);
-        } catch(SecurityException e) {
+            Application.main(ArrayUtils.addAll(cmdArgs, arguments));
+        } catch (SecurityException e) {
             // Ignore
         }
     }
-
 
 
 }

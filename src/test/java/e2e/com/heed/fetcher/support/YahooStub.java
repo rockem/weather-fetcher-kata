@@ -7,13 +7,10 @@ import wiremock.org.apache.http.client.utils.URIBuilder;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 public class YahooStub {
-
-    private static final String UNKNOWN = "Unknown, Unknown";
 
     public void receivedWeatherRequest(String[] unknownPlace) {
         verify(getRequestedFor(urlMatching("/v1/public/yql.*"))
@@ -22,7 +19,7 @@ public class YahooStub {
 
     public static void main(String[] args) throws UnsupportedEncodingException, URISyntaxException {
         new WireMockRecorder("https://query.yahooapis.com").record(
-                createWeatherRequestFor(UNKNOWN),
+                createWeatherRequestFor("Unknown, Unknown"),
                 createWeatherRequestFor("TelAviv, IL")
         );
     }

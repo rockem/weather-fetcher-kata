@@ -1,0 +1,19 @@
+{
+  "query": {
+    "count": 1,
+    "created": "2017-09-04T03:53:46Z",
+    "lang": "en-US",
+    "results": {
+      "channel": {
+        "item": {
+          "condition": {
+            "code": "33",
+            "date": "Mon, 04 Sep 2017 06:00 AM IDT",
+            "temp": "25",
+            "text": "Mostly Clear"
+          }
+        }
+      }
+    }
+  }
+}

@@ -20,7 +20,8 @@ public class YahooStub {
     public static void main(String[] args) throws UnsupportedEncodingException, URISyntaxException {
         new WireMockRecorder("https://query.yahooapis.com").record(
                 createWeatherRequestFor("Unknown, Unknown"),
-                createWeatherRequestFor("TelAviv, IL")
+                createWeatherRequestFor("TelAviv, IL"),
+                createWeatherRequestFor("NewYork, NY")
         );
     }
 
@@ -32,7 +33,7 @@ public class YahooStub {
     }
 
     private static String createQueryFor(String place) {
-        return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"" + place + "\") and u='c'";
+        return "select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"" + place + "\") and u='c'";
     }
 
 }

@@ -35,7 +35,7 @@ public class CmdArgs {
         return yahooDomain;
     }
 
-    public String[] getPlace() {
-        return arguments.toArray(new String[0]);
+    public String getPlace() {
+        return String.join(", ", arguments);
     }
 }

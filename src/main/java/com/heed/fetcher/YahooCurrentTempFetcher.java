@@ -2,10 +2,14 @@ package com.heed.fetcher;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.config.ConnectionConfig;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -24,7 +28,8 @@ public class YahooCurrentTempFetcher {
 
     public int fetch(String place) {
         try {
-            CloseableHttpResponse resp = HttpClients.createDefault().execute(new HttpGet(createUriFor(place)));
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            CloseableHttpResponse resp = httpClient.execute(new HttpGet(createUriFor(place)));
             String result = EntityUtils.toString(resp.getEntity());
             return fetchTempFrom(result);
         } catch (IllegalStateException | IOException | URISyntaxException e) {

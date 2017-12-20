@@ -31,11 +31,11 @@ public class CmdArgs {
         return cmdArgs;
     }
 
-    public String getYahooDomain() {
+    public String yahooDomain() {
         return yahooDomain;
     }
 
-    public String getPlace() {
+    public String place() {
         return String.join(", ", arguments);
     }
 }

@@ -1,4 +1,4 @@
-# Weather fetcher
+# Weather fetcher - TDD Kata
 
 # Requirements
 1. Create a command line utility that by given a place ('TelAviv IL') it will 

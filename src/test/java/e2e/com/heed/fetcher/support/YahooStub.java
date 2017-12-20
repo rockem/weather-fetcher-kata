@@ -1,5 +1,6 @@
 package e2e.com.heed.fetcher.support;
 
+import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.matching.EqualToPattern;
 import org.apache.http.client.methods.HttpGet;
 import wiremock.org.apache.http.client.utils.URIBuilder;
@@ -11,6 +12,8 @@ import java.net.URISyntaxException;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 public class YahooStub {
+
+    private static final int SECOND = 1000;
 
     public void receivedWeatherRequest(String[] unknownPlace) {
         verify(getRequestedFor(urlMatching("/v1/public/yql.*"))
@@ -36,4 +39,7 @@ public class YahooStub {
         return "select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"" + place + "\") and u='c'";
     }
 
+    public void isSlowToRespond() {
+        WireMock.setGlobalFixedDelay(3 * SECOND);
+    }
 }

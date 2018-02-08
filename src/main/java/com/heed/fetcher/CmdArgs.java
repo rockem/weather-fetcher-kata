@@ -25,7 +25,7 @@ public class CmdArgs {
             parser.parseArgument(args);
         } catch (CmdLineException e) {
             System.out.println("Weather Fetcher usage:");
-            parser.printUsage(System.err);
+            parser.printUsage(System.out);
             System.exit(1);
         }
         return cmdArgs;

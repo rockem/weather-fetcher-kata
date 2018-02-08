@@ -19,8 +19,8 @@ import static org.junit.Assert.*;
 public class AppDriver {
 
     private static final int SUCCESS = 0;
+    public static final int VALIDATE_PROGRESS_TIMEOUT = 3;
 
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
     private int errCode;
 
@@ -63,27 +63,30 @@ public class AppDriver {
 
 
 
-    public void showsProgress() throws ExecutionException, InterruptedException {
-        try {
-            assertTrue(
-                    executor.submit(new ProgressChecker()).get(4, TimeUnit.SECONDS));
-        } catch (TimeoutException e) {
-            executor.shutdownNow();
-            Assert.fail("No progress printed");
-        }
+    public void showsProgress() throws Exception {
+        assertTrue(new ProgressChecker(VALIDATE_PROGRESS_TIMEOUT).check());
     }
 
-    private class ProgressChecker implements Callable<Boolean> {
+    private class ProgressChecker {
 
+        private final int timeoutInSeconds;
         private int progress;
 
-        @Override
-        public Boolean call() throws Exception {
-            while (progress == 0 || !progressIncreased()) {
+        public ProgressChecker(int timeoutInSeconds) {
+            this.timeoutInSeconds = timeoutInSeconds;
+        }
+
+        public boolean check() throws Exception {
+            long startTime = System.currentTimeMillis();
+            while (isNotTimedOut(startTime) && (progress == 0 || !progressIncreased())) {
                 progress = printedProgress();
                 Thread.sleep(500);
             }
             return true;
+        }
+
+        private boolean isNotTimedOut(long startTime) {
+            return ((System.currentTimeMillis() - startTime) / 1000) < timeoutInSeconds;
         }
 
         private boolean progressIncreased() {

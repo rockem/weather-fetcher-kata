@@ -1,6 +1,7 @@
-package test.com.heed.fetcher;
+package it.com.heed.fetcher;
 
 import com.heed.fetcher.ProgressPrinter;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,5 +58,10 @@ public class ProgressPrinterTest {
         int dotsAfterStop = numberOfDots();
         Thread.sleep(INTERVAL * 3);
         assertThat(numberOfDots(), lessThan(dotsAfterStop + 2));
+    }
+
+    @After
+    public void stopProgress() throws Exception {
+        progressPrinter.stop();
     }
 }

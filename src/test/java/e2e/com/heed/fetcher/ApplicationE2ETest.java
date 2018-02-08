@@ -42,13 +42,22 @@ public class ApplicationE2ETest {
     @Test
     public void showProgressWhileFetching() throws Exception {
         yahoo.isSlowToRespond();
-        executor.submit(() -> application.execWith(TEL_AVIV));
+        Future<?> e = executor.submit(() -> application.execWith(TEL_AVIV));
         application.showsProgress();
+        e.cancel(true);
+    }
+
+    @Test
+    public void retrieveDummyResponse() throws Exception {
+        application.execWith(new String[] {"--dummy", "--time=2"});
+        application.printedTemperatureIs(34);
     }
 
     @After
     public void tearDown() throws Exception {
         executor.shutdownNow();
+        executor.awaitTermination(3, TimeUnit.SECONDS);
+        System.err.println("::>" + executor.isShutdown());
     }
 
 

@@ -15,6 +15,8 @@ public class Application {
         } catch(YahooCurrentTempFetcher.FailedToFetchTemperatureException e) {
             progress.stop();
             System.exit(1);
+        } finally {
+            progress.stop();
         }
 
     }

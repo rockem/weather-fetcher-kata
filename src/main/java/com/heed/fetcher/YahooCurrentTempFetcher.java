@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class YahooCurrentTempFetcher {
+public class YahooCurrentTempFetcher implements TempFetcher {
 
     private static final String CURRENT_WEATHER_QUERY =
             "select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"%s\") and u='c'";

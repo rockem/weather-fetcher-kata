@@ -1,4 +1,6 @@
-package com.heed.fetcher;
+package com.heed.fetcher.temp;
+
+import com.heed.fetcher.ProgressPrinter;
 
 public class ProgressTempFetcher implements TempFetcher {
 

@@ -1,4 +1,4 @@
-package com.heed.fetcher;
+package com.heed.fetcher.temp;
 
 public interface TempFetcher {
 

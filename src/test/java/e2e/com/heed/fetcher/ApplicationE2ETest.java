@@ -1,16 +1,19 @@
 package e2e.com.heed.fetcher;
 
-import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.heed.fetcher.Application;
 import e2e.com.heed.fetcher.support.AppDriver;
 import e2e.com.heed.fetcher.support.YahooStub;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Rule;
+import org.junit.Test;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class ApplicationE2ETest {
 
@@ -49,15 +52,14 @@ public class ApplicationE2ETest {
 
     @Test
     public void retrieveDummyResponse() throws Exception {
-        application.execWith(new String[] {"--dummy", "--time=2"});
-        application.printedTemperatureIs(34);
+        application.execWith(new String[] {"--dummy"});
+        application.printedTemperatureIs(Application.DUMMY_TEMP);
     }
 
     @After
     public void tearDown() throws Exception {
         executor.shutdownNow();
         executor.awaitTermination(3, TimeUnit.SECONDS);
-        System.err.println("::>" + executor.isShutdown());
     }
 
 

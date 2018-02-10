@@ -1,4 +1,4 @@
-package it.com.heed.fetcher;
+package test.com.heed.fetcher;
 
 import com.heed.fetcher.ProgressPrinter;
 import org.junit.After;

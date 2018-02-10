@@ -1,7 +1,7 @@
-package it.com.heed.fetcher;
+package test.com.heed.fetcher.temp;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import com.heed.fetcher.YahooCurrentTempFetcher;
+import com.heed.fetcher.temp.YahooCurrentTempFetcher;
 import org.junit.Rule;
 import org.junit.Test;
 

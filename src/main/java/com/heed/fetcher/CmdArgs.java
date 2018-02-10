@@ -10,12 +10,14 @@ import java.util.List;
 
 public class CmdArgs {
 
-    @Option(name="--yahoo", required = true, usage="Yahoo's domain")
+    @Option(name="--yahoo", usage="Yahoo's domain")
     private String yahooDomain;
 
     @Argument
     private List<String> arguments = new ArrayList<>();
 
+    @Option(name="--dummy")
+    private Boolean dummy;
 
     public static CmdArgs create(String[] args) {
         CmdArgs cmdArgs = new CmdArgs();
@@ -31,11 +33,17 @@ public class CmdArgs {
         return cmdArgs;
     }
 
+
+
     public String yahooDomain() {
         return yahooDomain;
     }
 
     public String place() {
         return String.join(", ", arguments);
+    }
+
+    public boolean dummy() {
+        return dummy == null ? false : dummy;
     }
 }
